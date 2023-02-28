@@ -1,0 +1,11 @@
+<% if @records.exists? %>
+  <% if @model=='user' %>
+    <h3>User search for "<%= @content %>"</h3>
+    <%= render 'users/index',users:@records %>
+  <% elsif @model=='book' %>
+    <h3>Book search for "<%= @content %>"</h3>
+    <%= render 'books/index',books:@records %>
+  <% end %>
+<% else %>
+  <p>データはありません</p>
+<% end %>
