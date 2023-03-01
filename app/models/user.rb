@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_many :favorites,dependent: :destroy
   has_many :book_comments,dependent: :destroy
 
-# 自分がフォローしているユーザーとの関連
+# 自分がフォローしているユーザーとの関連　has_manyはforeign_key(外部キー)に結びついている→フォローはたくさんできるのでhas_many　外部キーに指定したところから検索するという意味
   has_many :active_relationships,class_name:"Relationship",foreign_key:"follower_id",dependent: :destroy
   # 下のコードで、フォローしているユーザーを配列の様に扱えるようになりました。
   has_many :following,through: :active_relationships,source: :followed
