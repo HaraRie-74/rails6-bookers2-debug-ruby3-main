@@ -7,10 +7,10 @@
       <%= render 'form', book_new: @book_new %>
     </div>
     <div class='col-md-8 offset-md-1'>
-  		<h2>Book detail</h2>
+      <h2>Book detail</h2>
   		<table class='table'>
   		  <tr>
-          <td><%= link_to(@book.user) do %>
+  		    <td><%= link_to(@book.user) do %>
             <%= image_tag @book.user.get_profile_image(100,100) %><br>
             <%= @book.user.name %>
             <% end %>
