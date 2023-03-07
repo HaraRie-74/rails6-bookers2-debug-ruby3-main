@@ -7,6 +7,12 @@ class User < ApplicationRecord
   has_many :books,dependent: :destroy
   has_many :favorites,dependent: :destroy
   has_many :book_comments,dependent: :destroy
+  
+  # ここからDMのアソシエーション
+  has_many :user_rooms
+  has_many :chats
+  has_many :rooms,through: :user_rooms
+  # ここまで
 
 # 自分がフォローしているユーザーとの関連　has_manyはforeign_key(外部キー)に結びついている→フォローはたくさんできるのでhas_many　外部キーに指定したところから検索するという意味
   has_many :active_relationships,class_name:"Relationship",foreign_key:"follower_id",dependent: :destroy
