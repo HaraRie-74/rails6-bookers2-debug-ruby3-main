@@ -10,7 +10,13 @@ class BooksController < ApplicationController
 
   def index
     @book_new=Book.new
-    @books = Book.all
+    # 下３行、一週間分のいいねの多い順番を取得
+    to=Time.current.at_end_of_day
+    # ↑現在まで
+    from=(to-6.day).at_beginning_of_day
+    # ↑現在-6(つまり、一週間前)からの期間で
+    @books = Book.includes(:favorited_users).sort{|a,b| b.favorited_users.size <=> a.favorited_users.size}
+    #もとはBook.allだった。 　　　　　　　　↑sort・・・いいねの多い順に配列を並び替えている　a<=>bは少ない順になるので今回はb<=>a
     @book=Book.new
   end
 
