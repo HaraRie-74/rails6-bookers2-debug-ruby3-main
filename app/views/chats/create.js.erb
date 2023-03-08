@@ -1,0 +1,4 @@
+<!--appendは追加という意味-->
+$('.message').append("<p style='text-align: right;'><%= @chat.message %></p>");
+$('input[type=text]').val("")
+$('.errors').html("<%= j(render 'layouts/errors', obj: @chat) %>");
