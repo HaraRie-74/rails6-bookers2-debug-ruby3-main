@@ -9,6 +9,68 @@
     <div class='col-md-8 offset-md-1'>
       <h2>Books</h2>
       <%= render 'books/index',books: @books %>
+
+      <h3 class="mt-5">投稿数の前日比・前週比</h3>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>今日の投稿数</th>
+            <th>前日の投稿数</th>
+            <th>前日比</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <% today=@books.created_today.count %>
+              <%= today %>
+            </td>
+            <td>
+              <% yesterday=@books.created_yesterday.count %>
+              <%= yesterday %>
+            </td>
+            <td>
+              <% if yesterday==0 %>
+                前日の投稿はなし
+              <% else %>
+                <% day_before=today/yesterday.to_f %>
+                <%= (day_before*100).round(1) %>%
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+
+  
+        <thead>
+          <tr>
+            <th>今週の投稿数</th>
+            <th>前週の投稿数</th>
+            <th>前週比</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <% this_week=@books.created_thid_week.count %>
+              <%= this_week %>
+            </td>
+            <td>
+              <% last_week=@books.created_last_week.count %>
+              <%= last_week %>
+            </td>
+            <td>
+              <% week_before=this_week/last_week.to_f %>
+              <%= (week_before*100).round(1) %>%
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>
+table>
+
     </div>
   </div>
 </div>
