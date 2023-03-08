@@ -31,7 +31,7 @@
             </td>
             <td>
               <% if yesterday==0 %>
-                前日の投稿はなし
+                前日の投稿が０のため計算できません
               <% else %>
                 <% day_before=today/yesterday.to_f %>
                 <%= (day_before*100).round(1) %>%
@@ -62,6 +62,84 @@
           </tr>
         </tbody>
       </table>
+
+      <h3 class="mt-5">7日間分の投稿数</h3>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>6日前</th>
+            <th>5日前</th>
+            <th>4日前</th>
+            <th>3日前</th>
+            <th>2日前</th>
+            <th>1日前</th>
+            <th>今日</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <% days_6=@books.created_6days.count %>
+              <%= days_6 %>
+            </td>
+            <td>
+              <% days_5=@books.created_5days.count %>
+              <%= days_5 %>
+            </td>
+            <td>
+              <% days_4=@books.created_4days.count %>
+              <%= days_4 %>
+            </td>
+            <td>
+              <% days_3=@books.created_3days.count %>
+              <%= days_3 %>
+            </td>
+            <td>
+              <% days_2=@books.created_2days.count %>
+              <%= days_2 %>
+            </td>
+            <td>
+              <%= yesterday %>
+            </td>
+            <td>
+              <%= today %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!--ここから下は折れ線グラフ-->
+      <div>
+        <canvas id="myChart"></canvas>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <!--上４行は毎回書く-->
+      <script>
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: ['6日前', '5日前', '4日前', '3日前', '2日前', '1日前','今日'],
+            datasets: [{
+              label: '投稿した本の数',
+              // グラフの名前（グラフの上に表示される名前）
+              data: [<%= days_6 %>, <%= days_5 %>, <%= days_4 %>, <%= days_3 %>, <%= days_2 %>, <%= yesterday %>, <%= today %>],
+              // グラフのデータ
+              borderWidth: 1
+              // 線の太さ
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      </script>
+
 
     </div>
   </div>
