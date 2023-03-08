@@ -9,6 +9,19 @@
     <div class='col-md-8 offset-md-1'>
       <h2>Books</h2>
       <%= render 'books/index',books: @books %>
+      
+      <!--ここに検索機能入れる-->
+      <%= form_with url:user_searchshow,method: :get do |f| %>
+        <%= f.date_field:created_at %>
+        <%= f.submit "検索",class:'btn btn-primary' %>
+      <% end %>
+      
+      <div id="search_result">
+        <% if @search_book.present? %>
+          <%= render 'search',search_book: @search_book %>
+        <% end %>
+      </div>
+      <!--ここまで-->
 
       <h3 class="mt-5">投稿数の前日比・前週比</h3>
       <table class="table table-bordered">
@@ -124,7 +137,15 @@
             datasets: [{
               label: '投稿した本の数',
               // グラフの名前（グラフの上に表示される名前）
-              data: [<%= days_6 %>, <%= days_5 %>, <%= days_4 %>, <%= days_3 %>, <%= days_2 %>, <%= yesterday %>, <%= today %>],
+              data: [
+                     <%= days_6 %>,
+              　      <%= days_5 %>,
+              　      <%= days_4 %>,
+              　      <%= days_3 %>,
+              　      <%= days_2 %>,
+              　      <%= yesterday %>,
+              　      <%= today %>
+              　     ],
               // グラフのデータ
               borderWidth: 1
               // 線の太さ
