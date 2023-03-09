@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController
 
-before_action :ensure_correct_user,only:[:edit, :update]
+before_action :ensure_correct_user,only:[:edit, :update, :destroy]
 
   def new
     @group=Group.new
@@ -9,11 +9,27 @@ before_action :ensure_correct_user,only:[:edit, :update]
   def create
     @group=Group.new(group_params)
     @group.owner_id=current_user.id
+    @group.users << current_user
+    # グループ作成者をメンバーに追加
     if @group.save
       redirect_to groups_path
     else
       render "new"
     end
+  end
+
+  def join
+    @group=Group.find(params[:group_id])
+    @group.users << current_user
+    # @group.usersに、current_userを追加しているということなんですね
+    #「<<」は連結とかという意味。@group.usersで@groupに紐づいたuserを呼び出している→ 呼び出すuserにcurrent_userを追加しているという意味？
+    redirect_to groups_path
+  end
+
+  def notjoin
+    @group=Group.find(params[:group_id])
+    @group.users.delete(current_user)
+    redirect_to groups_path
   end
 
   def edit
@@ -27,6 +43,12 @@ before_action :ensure_correct_user,only:[:edit, :update]
     else
       render "edit"
     end
+  end
+
+  def destroy
+    group=Group.find(params[:id])
+    group.destroy
+    redirect_to groups_path
   end
 
   def index

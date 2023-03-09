@@ -9,7 +9,10 @@ Rails.application.routes.draw do
   resources :chats,only:[:show,:create]
 
   # グループのやつ　exceptは「～を除く」という意味
-  resources :groups,except:[:destroy]
+  resources :groups do
+    get "join"=>"groups#join"
+    get "notjoin"=>"groups#notjoin"
+  end
 
   resources :books, only: [:index,:show,:edit,:create,:destroy,:update] do
     resource :favorites, only: [:create,:destroy]

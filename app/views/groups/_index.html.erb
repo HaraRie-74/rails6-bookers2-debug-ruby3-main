@@ -4,6 +4,7 @@
       <th></th>
       <th>グループ名</th>
       <th>紹介文</th>
+      <th>メンバー数</th>
       <th></th>
     </tr>
   </thead>
@@ -20,10 +21,14 @@
         </td>
         <td>
           <%= group.introduction %>
-         </td>
+        </td>
+        <td>
+          <%= group.users.count %>
+        </td>
         <td>
           <% if group.owner_id==current_user.id %>
-            <%= link_to "Edit",edit_group_path(group.id),class:"btn btn-success" %>
+            <%= link_to "Edit",edit_group_path(group.id),class:"btn btn-primary" %>
+            <%= link_to "delete",group_path(group.id),method: :delete,class:"btn btn-danger" %>
           <% end %>
         </td>
       </tr>

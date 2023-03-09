@@ -1,4 +1,13 @@
 <table class="table table-borderd">
+  <thead>
+    <tr>
+      <th></th>
+      <th>グループ名</th>
+      <th>紹介文</th>
+      <th>メンバー</th>
+      <th></th>
+    </tr>
+  </thead>
   <tbody>
     <tr>
       <td>
@@ -11,8 +20,18 @@
         <%= group.introduction %>
       </td>
       <td>
+        <% group.users.each do |member| %>
+          <%= member.name %></br >
+        <% end %>
+      </td>
+      <td>
         <% if group.owner_id==current_user.id %>
-          <%= link_to "Edit",edit_group_path(group.id),class:"btn btn-success" %>
+          <%= link_to "Edit",edit_group_path(group.id),class:"btn btn-primary" %>
+          <%= link_to "delete",group_path(group.id),method: :delete,class:"btn btn-danger" %>
+        <% elsif group.users.include?(current_user) %>
+          <%= link_to "Leave this group",group_notjoin_path(group.id),class:"btn btn-warning" %>
+        <% else %>
+          <%= link_to "Join this group",group_join_path(group.id),class:"btn btn-success" %>
         <% end %>
       </td>
     </tr>
