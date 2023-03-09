@@ -15,14 +15,8 @@ class UsersController < ApplicationController
   # 検索機能
   def searchshow
     @user=User.find(params[:user_id])
-    @books=@user.books
-    @book=Book.new
-    if params[:created_at]==""
-      @search_book="日付を選択してください"
-    else
-      create_at=params[:created_at]
-      @search_book=@books.where(['created_at LILE ? ',"#{create_at}%"]).count
-    end
+    @search_book=@user.books.where(created_at:params[:created_at].to_date.all_day).count
+    # なぜだか不明だが、「.to_date.all_day」が必要！ないと正常に
   end
 
   def edit

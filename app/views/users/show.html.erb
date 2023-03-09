@@ -9,13 +9,15 @@
     <div class='col-md-8 offset-md-1'>
       <h2>Books</h2>
       <%= render 'books/index',books: @books %>
-      
+
       <!--ここに検索機能入れる-->
-      <%= form_with url:user_searchshow,method: :get do |f| %>
+      <div class="mt-5">
+      <%= form_with url:user_searchshow_path(@user.id),local:false,method: :get do |f| %>
         <%= f.date_field:created_at %>
         <%= f.submit "検索",class:'btn btn-primary' %>
       <% end %>
-      
+      </div>
+
       <div id="search_result">
         <% if @search_book.present? %>
           <%= render 'search',search_book: @search_book %>
