@@ -8,6 +8,10 @@ class User < ApplicationRecord
   has_many :favorites,dependent: :destroy
   has_many :book_comments,dependent: :destroy
   
+  # グループのアソシエーション
+  has_many :group_users
+  has_many :groups,through: :group_users
+  
   # ここからDMのアソシエーション
   has_many :user_rooms
   has_many :chats

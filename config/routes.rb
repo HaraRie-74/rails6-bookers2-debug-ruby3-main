@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   # ↓DMのやつ
   resources :chats,only:[:show,:create]
 
+  # グループのやつ　exceptは「～を除く」という意味
+  resources :groups,except:[:destroy]
+
   resources :books, only: [:index,:show,:edit,:create,:destroy,:update] do
     resource :favorites, only: [:create,:destroy]
     resources :book_comments,only: [:create,:destroy]

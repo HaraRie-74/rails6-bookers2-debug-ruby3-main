@@ -9,6 +9,13 @@
     </div>
     <div class='col-md-8 offset-md-1'>
       <h2>Users</h2>
+
+      <div class="gorup mb-3">
+        <%= link_to "グループを制作する",new_group_path %>
+        <span>|</span>
+        <%= link_to "グループ一覧",groups_path %>
+      </div>
+
       <%= render 'index',users: @users %>
     </div>
   </div>
