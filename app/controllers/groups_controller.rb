@@ -70,11 +70,12 @@ before_action :ensure_correct_user,only:[:edit, :update, :destroy]
 
   def mail_send
     @group=Group.find(params[:group_id])
-    from_user=User.find(@group.owner_id)
-    to_users=@group.users
+    # from_user=User.find(@group.owner_id) ★本当はこれ
+    # to_users=@group.users ★本当はこれ
     @mail=GroupMail.new(group_mail_params)
     if @mail.save
-      GroupMail.send_mail(from_user,to_users,@mail).deliver
+      # GroupmailMailer.send_mail(from_user,to_users,@mail).deliver ★本当はこれ
+      GroupmailMailer.send_mail(@mail).deliver
       #「メーラー名.メソッド名」として、クラスメソッドを呼び出す（GroupmailMailerのsend_mailの定義が呼び出される）
     　# 実際の送信を担うのはdeliverメソッドです。メーラーを起動して返ってきたメールのデータを送信します。
     else
