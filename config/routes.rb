@@ -10,8 +10,13 @@ Rails.application.routes.draw do
 
   # グループのやつ　exceptは「～を除く」という意味
   resources :groups do
+    # グループ関連アクションの追加
     get "join"=>"groups#join"
     get "notjoin"=>"groups#notjoin"
+    # グループメールアクションの追加
+    # groupsコントローラの中のmail_newアクションだがurlはmail/newというように、二段階になる
+    get "mail/new" => "groups#mail_new"
+    get "mail/send" => "groups#mail_send"
   end
 
   resources :books, only: [:index,:show,:edit,:create,:destroy,:update] do

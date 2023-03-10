@@ -63,6 +63,25 @@ before_action :ensure_correct_user,only:[:edit, :update, :destroy]
     @group=Group.find(params[:id])
   end
 
+  def mail_new
+    @group=Group.find(params[:group_id])
+    @mail=GroupMail.new
+  end
+
+  def mail_send
+    @group=Group.find(params[:group_id])
+    from_user=User.find(@group.owner_id)
+    to_users=@group.users
+    @mail=GroupMail.new(group_mail_params)
+    if @mail.save
+      GroupMail.send_mail(from_user,to_users,@mail).deliver
+      #「メーラー名.メソッド名」として、クラスメソッドを呼び出す（GroupmailMailerのsend_mailの定義が呼び出される）
+    　# 実際の送信を担うのはdeliverメソッドです。メーラーを起動して返ってきたメールのデータを送信します。
+    else
+      render "mail_new"
+    end
+  end
+
 
   private
 
@@ -75,6 +94,10 @@ before_action :ensure_correct_user,only:[:edit, :update, :destroy]
     unless @group.owner_id == current_user.id
       redirect_to groups_path
     end
+  end
+
+  def group_mail_params
+    params.require(:group_mail).permit(:mail_title,:mail_content)
   end
 
 end

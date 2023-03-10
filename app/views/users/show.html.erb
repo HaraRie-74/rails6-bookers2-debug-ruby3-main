@@ -69,8 +69,12 @@
               <%= last_week %>
             </td>
             <td>
-              <% week_before=this_week/last_week.to_f %>
-              <%= (week_before*100).round(1) %>%
+              <% if last_week==0 %>
+                前週の投稿が０のため計算できません
+              <% else %>
+                <% week_before=this_week/last_week.to_f %>
+                <%= (week_before*100).round(1) %>%
+              <% end %>
             </td>
           </tr>
         </tbody>

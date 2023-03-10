@@ -1,0 +1,14 @@
+
+      <%= form_with model:mail,url:group_mail_send_path(group.id),method: :get do |f| %>
+        <div class="form-group">
+          <label for="group_mail_mail_title">件名</label></br >
+          <%= f.text_field :mail_title,class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <label for="group_mail_mail_content">本文</label></br >
+          <%= f.text_area :mail_content,class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= f.submit "メール送信",class:"btn btn-info" %>
+        </div>
+      <% end %>
