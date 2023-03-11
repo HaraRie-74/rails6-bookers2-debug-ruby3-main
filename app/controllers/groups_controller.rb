@@ -76,8 +76,8 @@ before_action :ensure_correct_user,only:[:edit, :update, :destroy]
     if @mail.save
       # GroupmailMailer.send_mail(from_user,to_users,@mail).deliver ★本当はこれ
       GroupmailMailer.send_mail(@mail).deliver
-      #「メーラー名.メソッド名」として、クラスメソッドを呼び出す（GroupmailMailerのsend_mailの定義が呼び出される）
-    　# 実際の送信を担うのはdeliverメソッドです。メーラーを起動して返ってきたメールのデータを送信します。
+      # 「メーラー名.メソッド名」として、クラスメソッドを呼び出す（GroupmailMailerのsend_mailの定義が呼び出される）
+      # 実際の送信を担うのはdeliverメソッドです メーラーを起動して返ってきたメールのデータを送信します
     else
       render "mail_new"
     end

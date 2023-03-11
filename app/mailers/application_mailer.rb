@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: '管理人<from@gmail.com>'
+  default from: 'メールテスト'
   layout 'mailer'
 end
