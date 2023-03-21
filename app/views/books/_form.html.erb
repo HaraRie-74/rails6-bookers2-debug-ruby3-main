@@ -14,16 +14,26 @@
   </div>
 
   <!-- 評価javascript -->
-  <script>
-  $('#star').raty({
-    size     : 36,
-    starOff: '<%= asset_path('raty/star-on.png') %>',
-    starOn : '<%= asset_path('star-on.png') %>',
+  <!--<div id="post_raty"></div>-->
+  <!--<div id="image"></div>-->
+  <!--<script>-->
+  <!--  scriptファイルをどのidの部分に配置するかを指定-->
+  <!--  let elem = document.querySelector('#post_raty');-->
+  <!--  let opt = document.createElement('image');-->
+  <!--  opt.src = "app/assets/images/no_image.jpg";-->
+  <!--  document.write('<img src="app/assets/images/star-off.jpg" alt="画像の解説文">')-->
+  <!--</script>-->
 
-    scoreName: 'comment[star]',
-    half: false,
-  });
-  </script>
+  <div id="post_raty"></div>
+<script>
+  // scriptファイルをどのidの部分に配置するかを指定
+  let elem = document.querySelector('#post_raty');
+  let opt = 
+   "app/assets/images/star-on.png";
+   
+  raty(elem,opt);
+</script>
+
 
   <div class="form-group">
     <%= f.submit class: 'btn btn-success' %>
